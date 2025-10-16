@@ -7,26 +7,37 @@
 #include <stdexcept>
 #include <unordered_map>
 #include "sim.h"
+#include "tree_inference.h"
 
 
 int main() {
-    std::cout << "hi" << std::endl;
+
+    double ntInit = 1.0;
+    double ntLogSlope = 0.0;
+    int n = 10;
+
 
     const int SEED = 0;
     std::mt19937 rng;
     rng.seed(SEED);
 
     Tree tree = simulateTree(
-        10,
-        10.0,
-        0.0,
+        n,
+        ntInit,
+        ntLogSlope,
         rng
     );
 
-    //printTree(tree);
+    // printTree(tree);
 
     PerfectPhylo perfectPhylo = extractPerfectPhylo(tree, true);
     //printPerfectPhylo(perfectPhylo);
+
+    State state = constructInitialState(perfectPhylo, ntInit);
+
+    //printState(state);
+
+    std::cout << "Success" << std::endl;
 
     return 0;
 }

@@ -14,7 +14,9 @@ struct State {
     std::vector<double> nt; // Effective population size on each intercoalescent interval
     std::vector<int> g; // Genotype in which each mutation/coalescent occurs
     std::vector<int> produced; // Genotype of new lineage produced via mutation. -1 if coalescence
-    std::vector<int> nExtant; // Number of extant lineages of genotype g immediately PRIOR to its coalescence/mutation
+    std::vector<int> ng; // Number of extant lineages of genotype g immediately PRIOR to its coalescence/mutation
+    std::vector<int> k; // Number of TOTAL extant lineages immediately PRIOR to ith event
+    std::vector<int> c; // k choose 2; stored for the sake of efficiency
     bool rooted; // Is the root genotype fixed?
 };
 
@@ -27,3 +29,5 @@ void updateTree(
     State& state,
     std::mt19937& rng
 );
+
+void printState(const State& state);

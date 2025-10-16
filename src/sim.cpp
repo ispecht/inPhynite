@@ -138,11 +138,8 @@ PerfectPhylo extractPerfectPhylo(
     perfectPhylo.m = tree.m;
     perfectPhylo.neighbors.resize(tree.m + 1, {});
     perfectPhylo.w.resize(tree.m + 1, 0);
-    if(rooted) {
-        perfectPhylo.root = 2*tree.n - 2;
-    }else{
-        perfectPhylo.root = -1;
-    }
+    perfectPhylo.rooted = rooted;
+
 
     int nextAvail = 1;
     extractPerfectPhyloRec(tree, 2*tree.n - 2, 0, nextAvail, perfectPhylo);
@@ -155,7 +152,7 @@ void printPerfectPhylo(const PerfectPhylo& phylo) {
     std::cout << "=== Perfect Phylogeny ===" << std::endl;
     std::cout << "Number of leaves (n): " << phylo.n << std::endl;
     std::cout << "Number of mutations (m): " << phylo.m << std::endl;
-    std::cout << "Root: " << (phylo.root == -1 ? "unrooted" : std::to_string(phylo.root)) << std::endl;
+    std::cout << "Rooted?: " << phylo.rooted << std::endl;
     std::cout << std::endl;
     
     std::cout << "Node information:" << std::endl;
