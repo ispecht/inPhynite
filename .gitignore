@@ -1,0 +1,18 @@
+# Build artifacts
+build/
+*.o
+inPhynite
+
+# IDE/Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Compiled files
+*.out
+*.exe
