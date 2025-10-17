@@ -98,6 +98,7 @@ void updateTree(
     ) {
         std::swap(state.g[i], state.g[i+1]);
         std::swap(state.ng[i], state.ng[i+1]);
+        return;
     }
 
     // If two mutations, and the first doesn't produce the second genotype, auto accept
@@ -109,6 +110,7 @@ void updateTree(
             std::swap(state.g[i], state.g[i+1]);
             std::swap(state.produced[i], state.produced[i+1]);
             std::swap(state.ng[i], state.ng[i+1]);
+            return;
         }
     }
 
@@ -247,9 +249,12 @@ void updateTree(
         // Current number of lineages of coalescing genotype
         int curr_ng = state.ng[i+1]; // NOW: i+1 not i
 
-        if(curr_ng <= 2) {
-            throw std::runtime_error("Should be at least 3");
+        if(state.produced[i] == state.g[i+1]) {
+            if(curr_ng <= 2) {
+                throw std::runtime_error("Should be at least 3");
+            }
         }
+        
 
         // posterior log ratio
         double logRatio = 0.0;
@@ -287,6 +292,9 @@ void updateTree(
             state.c[i+1] = prop_c;
         }
     }else{
+        std::cout << "Debug:" << std::endl;
+        std::cout << state.produced[i] << std::endl;
+        std::cout << state.produced[i+1] << std::endl;
         throw std::runtime_error("Should be in coal, mut or mut, coal regime");
     }
 }

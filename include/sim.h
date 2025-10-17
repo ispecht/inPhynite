@@ -23,6 +23,7 @@ struct PerfectPhylo {
     int m; // total number of mutations; equals number of nodes in the perfect phylo minus one
     std::vector<int> w; // Weight of each node
     std::vector<std::vector<int>> neighbors; // Neighbors of each node
+    std::vector<std::vector<int>> leaves; // Leaves corresponding to each genotype
     bool rooted; // If rooted, the root genotype is always index 0
 };
 

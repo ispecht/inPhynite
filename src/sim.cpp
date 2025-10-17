@@ -5,16 +5,7 @@
 #include <string>
 #include "sim.h"
 #include "random.h"
-
-void removeValue(std::vector<int>& vec, int value) {
-    auto it = std::find(vec.begin(), vec.end(), value);
-    
-    if (it == vec.end()) {
-        throw std::invalid_argument("Value not found in vector");
-    }
-    
-    vec.erase(it);
-}
+#include "helpers.h"
 
 Tree simulateTree(
     int n,
@@ -118,7 +109,9 @@ void extractPerfectPhyloRec(
 
     // ancGeno is now the genotype of treeNode
     if(children.size() == 0) {
+        // treeNode is a leaf
         soFar.w[ancGeno]++;
+        soFar.leaves[ancGeno].push_back(treeNode);
         return;
     }
 
@@ -137,6 +130,7 @@ PerfectPhylo extractPerfectPhylo(
     perfectPhylo.n = tree.n;
     perfectPhylo.m = tree.m;
     perfectPhylo.neighbors.resize(tree.m + 1, {});
+    perfectPhylo.leaves.resize(tree.m + 1, {});
     perfectPhylo.w.resize(tree.m + 1, 0);
     perfectPhylo.rooted = rooted;
 
