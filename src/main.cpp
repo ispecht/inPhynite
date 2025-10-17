@@ -29,13 +29,16 @@ int main() {
     );
 
     // printTree(tree);
-
-    PerfectPhylo perfectPhylo = extractPerfectPhylo(tree, true);
+    PerfectPhylo perfectPhylo = extractPerfectPhylo(tree, true); // true means rooted
     //printPerfectPhylo(perfectPhylo);
 
     State state = constructInitialState(perfectPhylo, ntInit);
 
     //printState(state);
+
+    for(int i = 0; i < 1000; i++) {
+        updateTree(state, rng);
+    }
 
     std::cout << "Success" << std::endl;
 
