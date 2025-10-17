@@ -142,3 +142,32 @@ std::string treeToNewick(const Tree& tree) {
     
     return treeToNewickRec(tree, root) + ";";
 }
+
+
+std::vector<std::string> perfectPhyloToSequences(const PerfectPhylo& perfectPhylo, int L) {
+
+    // Idea: for each node on perfect phylo in ancestral history of sequence, we get a mutation at the index of that node
+
+    if(L < (int) perfectPhylo.w.size()) {
+        throw std::runtime_error("L too small");
+    }
+
+    std::string rootSeq(L, 'A');
+    std::vector<std::string> sequences(perfectPhylo.n, rootSeq);
+
+    for(int g = 0; g < (int) perfectPhylo.w.size(); g++) {
+        // Loop over hosts of that genotype
+        for(int j : perfectPhylo.leaves[g]) {
+            // Current genotype
+            int gCurr = g;
+            while(gCurr != 0) {
+                sequences[j][gCurr] = 'C';
+                gCurr = perfectPhylo.neighbors[gCurr][0];
+            }
+        }
+    }
+
+    return sequences;
+
+}
+

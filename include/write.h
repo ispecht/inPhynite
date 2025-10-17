@@ -15,3 +15,5 @@ Tree stateToTree(
 );
 
 std::string treeToNewick(const Tree& tree);
+
+std::vector<std::string> perfectPhyloToSequences(const PerfectPhylo& perfectPhylo, int L);

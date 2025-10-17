@@ -11,7 +11,6 @@
 #include "nt_inference.h"
 #include "write.h"
 
-
 void printUsage(const char* programName) {
     std::cout << "Usage: " << programName << " [options]" << std::endl;
     std::cout << "Required options:" << std::endl;
@@ -37,8 +36,20 @@ int main(int argc, char* argv[]) {
         if (arg.substr(0, 2) == "--") {
             std::string key = arg.substr(2);
             if (i + 1 < argc) {
-                args[key] = argv[i + 1];
-                i++;
+                std::string value = argv[i + 1];
+                // Check if next arg is a value (not a flag) - allows negative numbers
+                if (value.substr(0, 2) != "--") {
+                    args[key] = value;
+                    i++;
+                } else {
+                    std::cerr << "Error: Missing value for --" << key << std::endl;
+                    printUsage(argv[0]);
+                    return 1;
+                }
+            } else {
+                std::cerr << "Error: Missing value for --" << key << std::endl;
+                printUsage(argv[0]);
+                return 1;
             }
         }
     }
@@ -100,6 +111,8 @@ int main(int argc, char* argv[]) {
     trueNtFile << std::endl;
     trueNtFile.close();
 
+    
+
     // Initialize inferred tree output
     std::ofstream treeFile(OUT_DIR + "/trees.nexus");
     if (!treeFile.is_open()) {
@@ -116,6 +129,20 @@ int main(int argc, char* argv[]) {
 
     // Extract perfect phylogeny
     PerfectPhylo perfectPhylo = extractPerfectPhylo(tree, ROOTED); // true means rooted
+
+    // Write fasta
+    std::vector<std::string> sequences = perfectPhyloToSequences(perfectPhylo, 100000); // Length 100000 sequences
+
+    std::ofstream fastaFile(OUT_DIR + "/sequences.fasta");
+    if (!fastaFile.is_open()) {
+        throw std::runtime_error("Failed to open file: " + OUT_DIR + "/sequences.fasta");
+    }
+    for (size_t i = 0; i < sequences.size(); i++) {
+        fastaFile << ">sequence_" << i << std::endl;
+        fastaFile << sequences[i] << std::endl;
+    }
+    fastaFile.close();
+
 
     State state = constructInitialState(perfectPhylo, NT_INIT);
 
