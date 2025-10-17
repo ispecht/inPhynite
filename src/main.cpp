@@ -12,19 +12,59 @@
 #include "write.h"
 
 
-int main() {
+void printUsage(const char* programName) {
+    std::cout << "Usage: " << programName << " [options]" << std::endl;
+    std::cout << "Required options:" << std::endl;
+    std::cout << "  --nt_init <value>        Initial effective population size" << std::endl;
+    std::cout << "  --nt_log_slope <value>   Log slope for nt" << std::endl;
+    std::cout << "  --n <value>              Number of leaves" << std::endl;
+    std::cout << "  --rooted <0|1>           Root is fixed (0=false, 1=true)" << std::endl;
+    std::cout << "  --n_global_iters <value> Number of global iterations" << std::endl;
+    std::cout << "  --n_tree_iters <value>   Number of tree iterations" << std::endl;
+    std::cout << "  --sample_every <value>   Sample every N iterations" << std::endl;
+    std::cout << "  --infer_nt <0|1>         Infer nt (0=false, 1=true)" << std::endl;
+    std::cout << "  --out_dir <path>         Output directory" << std::endl;
+    std::cout << "Optional:" << std::endl;
+    std::cout << "  --seed <value>           Random seed (default: 123)" << std::endl;
+}
 
-    double NT_INIT = 32.0;
-    double NT_LOG_SLOPE = 0.0;
-    int N = 40;
-    int N_GLOBAL_ITERS = 10000;
-    int N_TREE_ITERS = 10000;
-    int SAMPLE_EVERY = 10;
-    bool INFER_NT = true;
-    std::string OUT_DIR = "/Users/ispecht/Desktop/demo_output";
-    const int SEED = 123;
+int main(int argc, char* argv[]) {
 
+    // Parse command line arguments
+    std::map<std::string, std::string> args;
+    for (int i = 1; i < argc; i++) {
+        std::string arg = argv[i];
+        if (arg.substr(0, 2) == "--") {
+            std::string key = arg.substr(2);
+            if (i + 1 < argc) {
+                args[key] = argv[i + 1];
+                i++;
+            }
+        }
+    }
 
+    // Check required arguments
+    std::vector<std::string> required = {"nt_init", "nt_log_slope", "n", "rooted", "n_global_iters", 
+                                          "n_tree_iters", "sample_every", "infer_nt", "out_dir"};
+    for (const auto& req : required) {
+        if (args.find(req) == args.end()) {
+            std::cerr << "Error: Missing required argument --" << req << std::endl;
+            printUsage(argv[0]);
+            return 1;
+        }
+    }
+
+    // Parse arguments
+    double NT_INIT = std::stod(args["nt_init"]);
+    double NT_LOG_SLOPE = std::stod(args["nt_log_slope"]);
+    int N = std::stoi(args["n"]);
+    bool ROOTED = (std::stoi(args["rooted"]) != 0);
+    int N_GLOBAL_ITERS = std::stoi(args["n_global_iters"]);
+    int N_TREE_ITERS = std::stoi(args["n_tree_iters"]);
+    int SAMPLE_EVERY = std::stoi(args["sample_every"]);
+    bool INFER_NT = (std::stoi(args["infer_nt"]) != 0);
+    std::string OUT_DIR = args["out_dir"];
+    int SEED = (args.find("seed") != args.end()) ? std::stoi(args["seed"]) : 123;
 
     std::mt19937 rng;
     rng.seed(SEED);
@@ -75,7 +115,7 @@ int main() {
     }
 
     // Extract perfect phylogeny
-    PerfectPhylo perfectPhylo = extractPerfectPhylo(tree, true); // true means rooted
+    PerfectPhylo perfectPhylo = extractPerfectPhylo(tree, ROOTED); // true means rooted
 
     State state = constructInitialState(perfectPhylo, NT_INIT);
 

@@ -20,19 +20,9 @@ void updateNt(
     // m[i] := number of intervals on which the effective population size is nt[i]
     std::vector<double> m(n-1, 0.0);
 
-    if(state.k.size() != state.m + state.n - 1) {
-        throw std::runtime_error("woah");
-    }
-
     for(size_t i = 0; i < state.k.size(); i++) {
         int intervalIdx = n - state.k[i];
         m[intervalIdx] += 1.0;
-    }
-
-    for(int j = 0; j < n-1; j++) {
-        if(m[j] < 1.0) {
-            throw std::runtime_error("M must be at least 1");
-        }
     }
 
     

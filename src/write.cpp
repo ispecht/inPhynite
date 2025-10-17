@@ -42,7 +42,7 @@ Tree stateToTree(
         int g = state.g[i];
 
         // Check agreement with ng
-        if(perfectPhylo.leaves[g].size() != state.ng[i]) {
+        if((int) perfectPhylo.leaves[g].size() != state.ng[i]) {
             throw std::runtime_error("ng disagreement");
         }
 
