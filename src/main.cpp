@@ -147,6 +147,10 @@ int main(int argc, char* argv[]) {
     State state = constructInitialState(perfectPhylo, NT_INIT);
 
     //printState(state);
+
+    // Time the Gibbs loop
+    auto start = std::chrono::high_resolution_clock::now();
+
     for(int globalIter = 0; globalIter < N_GLOBAL_ITERS; globalIter++) {
 
         for(int treeIter = 0; treeIter < N_TREE_ITERS; treeIter++) {
@@ -178,6 +182,16 @@ int main(int argc, char* argv[]) {
         int percentDone = (int)(100.0 * (globalIter + 1) / N_GLOBAL_ITERS);
         std::cout << "\rProgress: " << percentDone << "%" << std::flush;
     }
+
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+    std::cout << "Sampling took: " << (double) duration.count() / (1000000.0) << " seconds" << std::endl;
+
+
+
+
     std::cout << std::endl;
 
     // Complete the nexus format

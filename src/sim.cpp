@@ -163,6 +163,19 @@ void printPerfectPhylo(const PerfectPhylo& phylo) {
                 if (j < phylo.neighbors[i].size() - 1) std::cout << ", ";
             }
         }
+
+        std::cout << std::endl;
+
+        std::cout << "    Leaves: ";
+        if (phylo.leaves[i].empty()) {
+            std::cout << "none";
+        } else {
+            for (size_t j = 0; j < phylo.leaves[i].size(); j++) {
+                std::cout << phylo.leaves[i][j];
+                if (j < phylo.leaves[i].size() - 1) std::cout << ", ";
+            }
+        }
+
         std::cout << std::endl;
         std::cout << std::endl;
     }
