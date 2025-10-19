@@ -1,6 +1,6 @@
 # inPhynite
 
-A C++ tool for Bayesian phylogenetic inference using coalescent theory.
+A C++ tool for Bayesian phylogenetic inference under the infinite-sites mutation model.
 
 ## Installation
 
@@ -50,16 +50,16 @@ This will create the `inPhynite` executable in the current directory.
 
 ```bash
 ./inPhynite \
-  --nt_init 10000 \
-  --nt_log_slope 0.01 \
-  --n 50 \
-  --rooted 1 \
+  --nt_init 1.0 \
+  --nt_log_slope 0.0 \
+  --n 40 \
+  --rooted 0 \
   --n_global_iters 10000 \
-  --n_tree_iters 100 \
+  --n_tree_iters 10000 \
   --sample_every 10 \
-  --infer_nt 1 \
+  --infer_nt 0 \
   --out_dir ./output \
-  --seed 42
+  --seed 12345
 ```
 
 ## Cleaning build files
@@ -71,8 +71,14 @@ make clean
 
 ## License
 
-[Add your license information here]
+Copyright 2025 Ivan Specht
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Citation
 
-[Add citation information here]
+Specht, I. & Palacios, J.A. Efficient Bayesian Phylogenetics under the Infinite-Sites Model with inPhynite. arXiv, 2025.
