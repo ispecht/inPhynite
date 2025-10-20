@@ -15,3 +15,6 @@
 
 # start 1.5, log slope 1
 ./inPhynite --nt_init 1.5 --nt_log_slope 1.0 --n 40 --rooted 0 --n_global_iters 10000 --n_tree_iters 10000 --sample_every 10 --infer_nt 1 --out_dir /Users/ispecht/Desktop/PhyloSMC-analyses/runs/PhyloSMC/inferred_N_eff/drift_1
+
+# Real data
+./inPhynite --rooted 1 --n_global_iters 100000 --n_tree_iters 10000 --sample_every 100 --infer_nt 1 --in_file /Users/ispecht/Desktop/PhyloSMC-analyses/data/YRI.fasta --out_dir /Users/ispecht/Desktop/PhyloSMC-analyses/runs/PhyloSMC/real_data
