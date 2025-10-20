@@ -126,4 +126,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Citation
 
-Specht, I. & Palacios, J.A. Efficient Bayesian Phylogenetics under the Infinite-Sites Model with inPhynite. arXiv, 2025.
+Specht, I. & Palacios, J.A. Efficient Bayesian Phylogenetics under the Infinite-Sites Model with inPhynite. [arXiv preprint coming soon].
