@@ -12,5 +12,7 @@
 // Sample effective population size
 void updateNt(
     State& state,
-    std::mt19937& rng
+    std::mt19937& rng,
+    TridiagonalMatrix& sInv,
+    bool forceAccept
 ); 

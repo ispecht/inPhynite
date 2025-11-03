@@ -27,6 +27,7 @@ State constructInitialState(
 
 void updateTree(
     State& state,
+    int i,
     std::mt19937& rng
 );
 

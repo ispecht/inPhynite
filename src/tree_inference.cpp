@@ -17,7 +17,7 @@ State constructInitialState(
     State state;
     state.n = perfectPhylo.n;
     state.m = perfectPhylo.m;
-    state.nt.resize(state.m+state.n-1, ntInit);
+    state.nt.resize(state.n-1, ntInit);
     state.g.resize(state.m+state.n-1, -1);
     state.produced.resize(state.m+state.n-1, -1);
     state.ng.resize(state.m+state.n-1, -1);
@@ -80,11 +80,12 @@ State constructInitialState(
 
 void updateTree(
     State& state,
+    int i,
     std::mt19937& rng
 ) {
 
     // Smaller index of neighbor swap
-    int i = (int) rUnif(0.0, state.m + state.n - 2, rng);
+    //int i = (int) rUnif(0.0, state.m + state.n - 2, rng);
 
     // If genotypes are the same, nothing to do here!
     if(state.g[i] == state.g[i+1]) {

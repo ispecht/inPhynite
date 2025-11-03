@@ -178,10 +178,15 @@ int main(int argc, char* argv[]) {
         throw std::runtime_error("Failed to open file: " + OUT_DIR + "/nt.csv");
     }
 
-    
-
 
     State state = constructInitialState(perfectPhylo, NT_INIT);
+
+    TridiagonalMatrix sInv(
+        std::vector<double>(state.n-1, 0.0),
+        std::vector<double>(state.n-2, 0.0)
+    );
+
+    updateNt(state, rng, sInv, true); // Force accept 1st change in case of terrible initial guess
 
     //printState(state);
 
@@ -191,11 +196,15 @@ int main(int argc, char* argv[]) {
     for(int globalIter = 0; globalIter < N_GLOBAL_ITERS; globalIter++) {
 
         for(int treeIter = 0; treeIter < N_TREE_ITERS; treeIter++) {
-            updateTree(state, rng);
+            updateTree(
+                state,
+                treeIter % (state.m + state.n - 2),
+                rng
+            );
         }
 
         if(INFER_NT) {
-            updateNt(state, rng);
+            updateNt(state, rng, sInv, false);
         }
 
         if(globalIter % SAMPLE_EVERY == 0) {
@@ -209,6 +218,7 @@ int main(int argc, char* argv[]) {
                 if (i < treeCurr.nt.size() - 1) {
                     ntFile << ",";
                 }
+                
             }
 
             ntFile << std::endl;
@@ -218,6 +228,7 @@ int main(int argc, char* argv[]) {
         // Update progress on same line
         int percentDone = (int)(100.0 * (globalIter + 1) / N_GLOBAL_ITERS);
         std::cout << "\rProgress: " << percentDone << "%" << std::flush;
+        //std::cout << state.nt[0] << std::endl;
     }
 
     std::cout << std::endl;
