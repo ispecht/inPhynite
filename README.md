@@ -34,7 +34,7 @@ inPhynite can operate in two modes: analyzing real sequence data from a FASTA fi
 
 ### Required parameters (both modes)
 
-- `--rooted <0|1>` - Whether the root is fixed (0=false, 1=true).
+- `--rooted <0|1>` - Whether the root is fixed (0=false, 1=true)
 - `--n_global_iters <value>` - Number of global iterations
 - `--n_tree_iters <value>` - Number of tree iterations per global iteration
 - `--sample_every <value>` - Sample every N iterations
