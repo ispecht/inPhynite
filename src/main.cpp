@@ -186,7 +186,9 @@ int main(int argc, char* argv[]) {
         std::vector<double>(state.n-2, 0.0)
     );
 
-    updateNt(state, rng, sInv, true); // Force accept 1st change in case of terrible initial guess
+    if(INFER_NT) {
+        updateNt(state, rng, sInv, true); // Force accept 1st change in case of terrible initial guess
+    }
 
     //printState(state);
 
