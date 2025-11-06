@@ -34,7 +34,7 @@ inPhynite can operate in two modes: analyzing real sequence data from a FASTA fi
 
 ### Required parameters (both modes)
 
-- `--rooted <0|1>` - Whether the root is fixed (0=false, 1=true). If true and using real data, the first sequence in the FASTA is taken to be the root.
+- `--rooted <0|1>` - Whether the root is fixed (0=false, 1=true).
 - `--n_global_iters <value>` - Number of global iterations
 - `--n_tree_iters <value>` - Number of tree iterations per global iteration
 - `--sample_every <value>` - Sample every N iterations
@@ -45,7 +45,7 @@ inPhynite can operate in two modes: analyzing real sequence data from a FASTA fi
 
 When using real sequence data, provide:
 
-- `--in_file <path>` - Input FASTA file with aligned sequences
+- `--in_file <path>` - Input FASTA file with aligned sequences. If rooted is set to true, the first sequence in the FASTA is taken to be the root sequence.
 
 **Example:**
 ```bash
