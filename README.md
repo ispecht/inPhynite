@@ -1,6 +1,6 @@
 # inPhynite
 
-A C++ tool for Bayesian phylogenetic inference under the infinite-sites mutation model.
+A C++ tool for Bayesian phylogenetic inference under the infinite-sites mutation model. Created by Ivan Specht (ispecht@stanford.edu).
 
 ## Installation
 
