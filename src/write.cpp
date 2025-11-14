@@ -3,12 +3,20 @@
 #include <numeric>
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include "sim.h"
 #include "random.h"
 #include "write.h"
 #include "sim.h"
 #include "tree_inference.h"
 #include "helpers.h"
+
+std::string doubleToString(double value, int precision = 16) {
+    std::ostringstream oss;
+    oss << std::setprecision(precision) << value;
+    return oss.str();
+}
 
 
 Tree stateToTree(
@@ -112,7 +120,7 @@ std::string treeToNewickRec(const Tree& tree, int node) {
         
         // Branch length is difference in times
         double branchLength = tree.t[node] - tree.t[child];
-        result += ":" + std::to_string(branchLength);
+        result += ":" +  doubleToString(branchLength);
         
         if (i < tree.children[node].size() - 1) {
             result += ",";

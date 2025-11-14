@@ -6,8 +6,8 @@
 #include <stdexcept>
 #include <algorithm>
 #include <cctype>
+#include <set>
 #include <unordered_set>
-#include <unordered_map>
 #include "sim.h"
 
 std::pair<std::vector<std::string>, std::vector<std::string>> read_fasta(const std::string& filename) {
@@ -147,10 +147,10 @@ bool remove_incompatible_site(std::vector<std::string>& sequences) {
     
     for (size_t pos_i = 0; pos_i < seq_length - 1; ++pos_i) {
         for(size_t pos_j = pos_i + 1; pos_j < seq_length; ++pos_j) {
-            std::unordered_set<char> combos;
+            std::set<std::pair<char, char>> combos;
 
             for (const auto& seq : sequences) {
-                combos.insert(seq[pos_i] + seq[pos_j]);
+                combos.insert({seq[pos_i], seq[pos_j]});
             }
 
             if(combos.size() > 4) {

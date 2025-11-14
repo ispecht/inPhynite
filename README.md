@@ -1,6 +1,6 @@
 # inPhynite
 
-A C++ tool for Bayesian phylogenetic inference under the infinite-sites mutation model. Created by Ivan Specht (ispecht@stanford.edu).
+A C++ tool for Bayesian phylogenetic inference under the infinite sites mutation model. Created by Ivan Specht (ispecht@stanford.edu).
 
 ## Installation
 
@@ -92,7 +92,7 @@ When simulating data, provide:
 For real data mode, the input FASTA file should contain aligned sequences. The tool will then:
 1. Filter to biallelic sites (positions with exactly two nucleotides across all sequences)
 2. Remove sites with missing data (N's or gaps)
-3. Apply compatibility filtering to ensure data conform to the infinite-sites model
+3. Apply compatibility filtering to ensure data conform to the infinite sites model
 
 ### Output files
 
@@ -126,4 +126,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Citation
 
-Specht, I. & Palacios, J.A. Efficient Bayesian Phylogenetics under the Infinite-Sites Model with inPhynite. [arXiv preprint coming soon].
+Specht, I. & Palacios, J.A. Efficient Bayesian Phylogenetics under the Infinite Sites Model. [bioRxiv preprint coming soon].
